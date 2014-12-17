@@ -476,6 +476,8 @@ and ex ret_reg = function
          ex ret_reg e1;
          push_buffer (sprintf "\tbeq $%d, $0, L%d\n" ret_reg l1);
          ex ret_reg e2;
+         push_buffer (sprintf "\tbeq $%d, $0, L%d\n" ret_reg l1);
+         push_buffer (sprintf "\tmov $%d, 1\n" ret_reg);
          push_buffer (sprintf "\tbr L%d\n" l2);
          push_buffer (sprintf "L%d:\n" l1);
          push_buffer (sprintf "\tmov $%d, $0\n" ret_reg);
@@ -488,6 +490,8 @@ and ex ret_reg = function
          push_buffer (sprintf "\tbr L%d\n" l2);
          push_buffer (sprintf "L%d:\n" l1);
          ex ret_reg e2;
+         push_buffer (sprintf "\tbeq $%d, $0, L%d\n" ret_reg l2);
+         push_buffer (sprintf "\tmov $%d, 1\n" ret_reg);
          push_buffer (sprintf "L%d:\n" l2))
   | EUnary (ty, op, e) ->
      (match op with
